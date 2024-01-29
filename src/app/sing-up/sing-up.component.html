@@ -1,0 +1,59 @@
+<div class="form-container mat-elevation-z5 shadow-lg">
+  <h1 class="fs-3 text-center">Kayıt Ol</h1>
+  <form [formGroup]="signUpForm" (ngSubmit)="submit()" class="fs-6 mt-4">
+    <mat-form-field>
+      <input matInput placeholder="İsminiz" formControlName="name" />
+      <mat-error *ngIf="name?.errors?.['required']">
+        <span class="text-danger mt-0">İsim giriniz</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Email adresiniz" formControlName="email" />
+      <mat-error *ngIf="email?.errors?.['required']">
+        <span class="text-danger mt-0">Email adresi giriniz</span>
+      </mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">
+        <span class="text-danger mt-0">
+          Lütfen geçerli bir mail adresi giriniz</span
+        >
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        placeholder="Şifreniz"
+        formControlName="password"
+        class="mt-4"
+      />
+      <mat-error *ngIf="password?.errors?.['required']">
+        <span class="text-danger mt-0">Şifrenizi giriniz</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        placeholder="Tekrar şifreniz"
+        formControlName="confirmPassword"
+      />
+      <mat-error *ngIf="confirmPassword?.errors?.['required']">
+        <span class="text-danger mt-0">Şifrenizi onaylayın</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">
+      <span class="text-danger mt-0">Şifre eşleşmiyor kontrol ediniz</span>
+    </mat-error>
+    <div class="center margin-top">
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        class="btn btn-primary bg-primary shadow"
+        style="color: white"
+      >
+        Kayıt Ol!
+      </button>
+    </div>
+  </form>
+</div>

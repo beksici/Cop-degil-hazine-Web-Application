@@ -1,0 +1,62 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+.filters .filter-box {
+  border-bottom: 1px solid #dee2e6;
+}
+.filters .filter-box .card-header {
+  border-bottom: 0;
+  border-radius: 0;
+}
+
+.filters .menu {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+.filters .menu li a {
+  margin-bottom: 3px;
+  border-bottom: 1px solid rgb(233, 233, 233);
+  color: white;
+}
+
+.filters .menu li a:hover {
+  background-color: #999aa5;
+  transition: all;
+  transition-duration: 0.5s;
+}
+.filters .menu li > a {
+  color: #515155;
+  text-decoration: none;
+}
+
+.filters .scroll {
+  /* Her yeni marka eklendiğinde mesela scroll bar çıkar artık 200px geçtiği için */
+  max-height: 200px;
+  overflow: auto;
+}
+.filters .card-header a {
+  text-decoration: none;
+  color: black;
+}
+
+.filters .fa-chevron-down {
+  float: right;
+  font-size: 14px;
+  color: #9da1a7;
+  margin-top: 5px;
+}
+
+.filters .btn-light {
+  background-color: white;
+  border-color: #dee2e6;
+  color: #212529;
+}
+
+.active {
+  background-color: #c5cfda;
+  border-radius: 5px;
+}
+.filters {
+  background-color: #5c8374 !important;
+}

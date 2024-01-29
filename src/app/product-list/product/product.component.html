@@ -1,0 +1,189 @@
+<!-- <div class="card mb-3 pt-1 border border-warning">
+  <div class="row">
+    <div class="col-3">
+      <img
+        src="/assets/images/{{ prd.imageUrl }}"
+        alt=""
+        class="img-fluid rounded-start"
+      />
+    </div>
+    <div class="col-9">
+      <div class="card-body">
+        <h5 class="card-title">{{ prd.name }}</h5>
+        <p class="card-text">
+          {{ prd.description }}
+        </p>
+         <button (click)="unSelectProduct()" class="btn btn-primary">
+          Seçimi Kaldır
+        </button>
+        <button (click)="unSelectProduct()" class="btn btn-primary">Seçimi Kaldır</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div *ngIf="!loading">
+  <div class="card mb-3 pt-1" *ngIf="product; else noProduct">
+    <!-- border border-warning -->
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <!-- <img
+          src="/assets/images/{{ product.adImages }}"
+          alt=""
+          class="img-fluid rounded-start"
+        /> -->
+
+        <div
+          id="carouselExampleInterval"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner" id="carousel-inner">
+            <div class="carousel-item active zoom">
+              <img
+                src="/assets/images/noImage.jpeg"
+                class="d-block w-100"
+                alt="..."
+                id="image0"
+              />
+            </div>
+
+            <div *ngFor="let a of fakeArray; let index = index">
+              <div
+                class="carousel-item zoom"
+                *ngIf="fakeArray.length != index + 1"
+              >
+                <img
+                  src="/assets/images/noImage.jpeg"
+                  class="d-block w-100"
+                  alt="..."
+                  id="image{{ index + 1 }}"
+                />
+              </div>
+            </div>
+
+            <!-- <div class="carousel-item">
+              <img
+                src="/assets/images/noImage.jpeg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div> -->
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleInterval"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleInterval"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <!-- -------------- -->
+        <!-- rounded-start soldan yuvarlatır -->
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="card-body">
+          <h3 class="card-title mb-3 text-center">{{ product.name }}</h3>
+          <div
+            class="d-flex justify-content-start align-items-center border-bottom"
+          >
+            <div class="card-text px-3">İlan no:</div>
+            <div class="card-text" style="overflow-y: auto">
+              {{ product.adNo }}
+            </div>
+          </div>
+          <div
+            class="d-flex justify-content-start align-items-center border-bottom"
+          >
+            <div class="card-text px-3">İlan Tarihi:</div>
+            <div class="card-text">{{ product.adDate }}</div>
+          </div>
+          <div
+            class="d-flex justify-content-start align-items-center border-bottom"
+          >
+            <div class="card-text px-3">Kategori:</div>
+            <div class="card-text">
+              {{ UpnameCat + " / " + downNameCat }}
+            </div>
+          </div>
+          <div
+            class="d-flex justify-content-start align-items-center border-bottom"
+          >
+            <div class="card-text px-3">Tel:</div>
+            <div class="card-text" style="overflow-y: auto">
+              {{ product.phoneNo }}
+            </div>
+          </div>
+
+          <div
+            class="d-flex justify-content-start align-items-center border-bottom"
+          >
+            <div class="card-text px-3">Ücret Tipi:</div>
+            <div class="card-text" *ngIf="productPriceCheck">Ücretsiz</div>
+            <div class="card-text" *ngIf="!productPriceCheck">Ücretli</div>
+          </div>
+          <div
+            class="d-flex justify-content-start align-items-center border-bottom"
+          >
+            <div class="card-text px-3">Konum:</div>
+            <div class="card-text">
+              {{ product.city }} / {{ product.district }} /
+              {{ product.quarter }}
+            </div>
+          </div>
+          <div
+            class="d-flex border-bottom flex-column"
+            (click)="toggleFullAddress()"
+          >
+            <div class="card-text px-3">Tam Adres:</div>
+            <div class="card-text px-3">
+              {{ showFullAddress ? product.fullAddress : truncatedAddress }}
+            </div>
+          </div>
+          <!-- <button (click)="unSelectProduct()" class="btn btn-primary">
+          Seçimi Kaldır
+        </button> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row mt-3" style="background-color: aliceblue">
+        <div class="col-12 col-md-6">
+          <div>
+            <p class="px-3 text-center h6">Açıklama</p>
+            <div>
+              <p class="my-3" [innerHTML]="product.adDescription">
+                <!-- {{ product.description }} -->
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <location
+            [latitude]="product.latitude"
+            [Longitude]="product.longitude"
+          ></location>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noProduct>
+  <div class="alert alert-warning">No Products</div>
+</ng-template>
+
+<div *ngIf="loading" class="spinner-border text-primary" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>

@@ -1,0 +1,109 @@
+<!-- <p>home works!</p> -->
+<!-- <product-list></product-list> -->
+<!-- burayı şimdilik böyle yazdım -->
+<h1 class="text-center fade-in-text" *ngIf="user$ | async as user; else noUser">
+  <div *ngIf="user$ | async as user">
+    HOŞGELDİN {{ user.displayName?.toLocaleUpperCase("tr-TR") }}
+  </div>
+</h1>
+
+<ng-template #noUser>
+  <!-- Kullanıcı mevcut değilse görüntülenecek içerik -->
+  <h1 class="text-center fade-in-text">
+    <div>HOŞGELDİNİZ</div>
+  </h1>
+</ng-template>
+<div class="col-sm-12 text-center mt-3 shadow-lg">
+  <div class="carousel slide" id="slider" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-bs-target="#slider" data-bs-slide-to="0" class="active"></li>
+      <li data-bs-target="#slider" data-bs-slide-to="1"></li>
+      <li data-bs-target="#slider" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner shadow-lg">
+      <div class="carousel-item active">
+        <img
+          src="/assets/images/slider-1.png"
+          alt=""
+          class="d-block w-100"
+          style="object-fit: fill"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="/assets/images/slider-2.png"
+          alt=""
+          class="d-block w-100"
+          style="object-fit: fill"
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="/assets/images/slider-3.png"
+          alt=""
+          class="d-block w-100"
+          style="object-fit: fill"
+        />
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#slider"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#slider"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+</div>
+<div class="firework"></div>
+<div class="firework"></div>
+<div class="firework"></div>
+<!-- <div *ngIf="user$ | async as user">
+  <div class="profile-image">
+    <img
+      width="120"
+      height="120"
+      class="margin-top mat-elevation-z1"
+      [src]="user.photoURL ?? '/assets/images/1.jpeg'"
+    />
+    <button mat-mini-fab (click)="inputField.click()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <input #inputField type="file" (change)="uploadImage($event, user)" />
+    <button (click)="getImage(user)"></button>
+    <img src="" id="myimg" />
+  </div>
+</div> -->
+
+<!-- <input
+  type="file"
+  id="imageInput"
+  accept="image/*"
+  (change)="imageSelected($event)"
+/>
+<img
+  id="uploadedImage"
+  *ngIf="selectedImage"
+  [src]="selectedImage.src"
+  width="300"
+  height="300"
+  style="display: none"
+/>
+
+handwriting-to-text.component.html
+
+<input type="file" #fileInput (change)="onFileSelected()" />
+<img *ngIf="imageUrl" [src]="imageUrl" alt="Handwriting Image" />
+<div *ngIf="recognizedText">
+  <h2>Recognized Text:</h2>
+  <p>{{ recognizedText }}</p>
+</div> -->

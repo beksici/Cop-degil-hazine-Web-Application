@@ -1,0 +1,16 @@
+p {
+  background-color: blue;
+}
+.top-bar {
+  background-color: #f3f3f3;
+}
+
+@media (max-width: 1200px) {
+  #navbar-nav li.nav-item a {
+    font-size: 14px; /* İstediğiniz font boyutunu ayarlayabilirsiniz */
+  }
+}
+
+.nav-item {
+  cursor: pointer;
+}

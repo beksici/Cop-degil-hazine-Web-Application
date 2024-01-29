@@ -1,0 +1,38 @@
+<div class="container text-center">
+  <div class="alert alert-danger" *ngIf="error && !lat">
+    {{ error }}
+  </div>
+  <h3 class="mb-3">BEKLEYEN HAZİNELER</h3>
+  <div class="row">
+    <div class="my-google-map" *ngIf="lat && lng">
+      <google-map [options]="mapOptions" width="100%">
+        <map-marker
+          [position]="marker.position"
+          [clickable]="true"
+          label="BURADASINIZ"
+          title="YOU"
+          icon="/assets/images/location.png"
+        ></map-marker>
+        <div *ngFor="let marker of markers">
+          <map-marker
+            [position]="marker.position"
+            [clickable]="true"
+            [label]="marker.label"
+            [title]="marker.title"
+            (mapClick)="markerClicked($event, marker)"
+          ></map-marker>
+          <a class="hidden" id="treasuresLink" href="" target="_blank"></a>
+        </div>
+      </google-map>
+    </div>
+  </div>
+  <div
+    class="row d-flex justify-content-center align-items-center"
+    *ngIf="lat && lng"
+  >
+    <p class="text-secondary mt-3 h5">
+      Yol tarifini için konum İşaretçiğine tıklayın. ( İşaretçikte ilan
+      numarasını görmektesiniz. )
+    </p>
+  </div>
+</div>

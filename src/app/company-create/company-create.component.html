@@ -1,0 +1,152 @@
+<h3 class="text-center mb-3">Kurumsal Firma Oluştur</h3>
+<!-- {{ model | json }} -->
+<form
+  #form="ngForm"
+  *ngIf="user$ | async as user"
+  (ngSubmit)="saveProduct(form, user)"
+>
+  <div class="alert alert-danger" *ngIf="error">
+    {{ error }}
+  </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">Şirket Adı</label>
+    <input
+      required
+      minlength="5"
+      maxlength="50"
+      [(ngModel)]="model.name"
+      #name="ngModel"
+      type="text"
+      name="name"
+      id="name"
+      class="form-control"
+    />
+  </div>
+  <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+    Şirket adı en az 5 karakter olmalıdır
+  </div>
+
+  <div class="mb-3">
+    <label for="fullAddress" class="form-label">Adres</label>
+
+    <textarea
+      cols="30"
+      rows="10"
+      [(ngModel)]="model.fullAddress"
+      name="fullAddress"
+      required
+      id="fullAddress"
+      class="form-control"
+    >
+    </textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Açıklama</label>
+    <!-- <textarea
+      [(ngModel)]="model.description"
+      name="description"
+      required
+      id="description"
+      class="form-control"
+    ></textarea> -->
+    <textarea
+      cols="30"
+      rows="10"
+      [(ngModel)]="model.description"
+      name="description"
+      required
+      id="description"
+      class="form-control"
+    >
+    </textarea>
+  </div>
+  <div class="mb-3">
+    <label for="imageUrl" class="form-label">Şirket Resmi Yükleme</label>
+    <input
+      [(ngModel)]="model.imageUrl"
+      type="file"
+      name="imageUrl"
+      required
+      id="imageUrl"
+      class="form-control"
+      accept="image/*"
+      (change)="setFileList($event)"
+    />
+  </div>
+  <img
+    id="uploadedImageCreate"
+    *ngIf="selectedImage"
+    [src]="selectedImage.src"
+    width="300"
+    height="300"
+    style="display: none"
+  />
+
+  <div class="select-location mb-3">
+    <div class="text"><p class="text-center">Konum</p></div>
+    <select
+      [(ngModel)]="model.adCityP"
+      class="form-select my-2"
+      aria-label="Default select example"
+      name="adCityP"
+      id="adCityP"
+      required
+      #adCityP
+      (change)="updateDistrict(adCityP)"
+    >
+      <option value="0">Lütfen il seçiniz</option>
+      <option *ngFor="let city of cities" value="{{ city.name }}">
+        {{ city.name }}
+      </option>
+      >
+    </select>
+    <select
+      [(ngModel)]="model.adDistrictP"
+      class="form-select mb-2"
+      aria-label="Default select example"
+      name="adDistrictP"
+      id="adDistrictP"
+      #adDistrictP
+      (click)="updateQuarter(adCityP, adDistrictP)"
+    >
+      <option value="0" selected>Lütfen ilçe seçiniz</option>
+    </select>
+    <select
+      [(ngModel)]="model.adQuarterP"
+      class="form-select mb-2"
+      aria-label="Default select example"
+      name="adQuarterP"
+      id="adQuarterP"
+      #adQuarterP
+      (change)="setFilterLocation(adCityP, adDistrictP, adQuarterP)"
+    >
+      <option value="0" selected>Lütfen mahalle seçiniz</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="phoneNo" class="form-label">Telefon Numarası</label>
+    <input
+      required
+      [(ngModel)]="model.phoneNo"
+      #phoneNo="ngModel"
+      type="tel"
+      name="phoneNo"
+      id="phoneNo"
+      class="form-control"
+      maxlength="10"
+      pattern="\d{3}\d{3}\d{2}\d{2}"
+      placeholder="(506)-655-15-45"
+      (change)="phoneNumberFormatter(phoneNo)"
+    />
+  </div>
+  <div class="text-danger mt-1" *ngIf="phoneNo.invalid && phoneNo.touched">
+    Lütfen Şirket Telefon Numarasını Giriniz
+  </div>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+      Oluştur
+    </button>
+  </div>
+</form>

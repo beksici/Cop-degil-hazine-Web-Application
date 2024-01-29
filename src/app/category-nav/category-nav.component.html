@@ -1,0 +1,59 @@
+<div
+  class="list-group list-group-horizontal row shadow"
+  id="category-nav"
+  *ngIf="isVisible$ | async"
+>
+  <!-- <a
+      *ngFor="let category of categories"
+      (click)="selectCategory(category)"
+      href="#"
+      class="list-group-item list-group-item-action"
+      [class.active]="category == selectedCategory"
+    >
+      {{ category.name }}</a
+    > -->
+  <a
+    (click)="selectCategory()"
+    class="list-group-item list-group-item-action pt-2 row text-center border"
+    id="allCategories"
+    routerLink="/products"
+    (click)="unVisibleNav()"
+  >
+    <span> Tüm kategoriler</span>
+    <!-- bg-info bg-gradient text-light -->
+    <!-- [class.active]="displayAll"  a içinde yazasan aktif olan gözükür yani seçtiğinin arkası değişir-->
+    <!-- (click)="dnone()" -->
+  </a>
+
+  <!-- <a
+    *ngFor="let category of categories"
+    routerLink="/products/categories/{{ category.id }}"
+    (click)="selectCategory(category)"
+    class="list-group-item list-group-item-action"
+    [class.active]="category == selectedCategory"
+  >
+    {{ category.upName }}</a
+  > -->
+  <a
+    *ngFor="let allUpname of allCategoriesUpName"
+    class="list-group-item list-group-item-action pt-2 col border text-center"
+    (click)="selectCategory(allUpname)"
+    (click)="selectCategoryUp(allUpname)"
+    (click)="unVisibleNav()"
+  >
+    {{ allUpname }}
+    <!-- [class.active]="allUpname == selectedCategory" a içinde yazasan aktif olan gözükür yani seçtiğinin arkası değişir -->
+    <!-- (click)="dnone()" -->
+  </a>
+</div>
+<!-- <div *ngIf="selectedCategory != null">
+  <breadcrumb [inputCategory]="null"></breadcrumb>
+</div> -->
+
+<!-- <div class="container text-align-center text-start my-1" id="breadcrumb">
+  <div *ngIf="!displayAll">
+    <div class="row">
+      <div class="col-12">{{ getBreadcrum.upname + " / " }}</div>
+    </div>
+  </div>
+</div> -->

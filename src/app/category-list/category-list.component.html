@@ -1,0 +1,226 @@
+<!-- <div class="list-group">
+   <a
+    *ngFor="let category of categories"
+    (click)="selectCategory(category)"
+    href="#"
+    class="list-group-item list-group-item-action"
+    [class.active]="category == selectedCategory"
+  >
+    {{ category.name }}</a
+  > 
+  <a
+    (click)="selectCategory()"
+    class="list-group-item list-group-item-action"
+    [class.active]="displayAll"
+    routerLink="/products"
+  >
+    Tüm kategoriler</a
+  >
+
+  <a
+    *ngFor="let category of categories"
+    routerLink="/products/categories/{{ category.id }}"
+    (click)="selectCategory(category)"
+    class="list-group-item list-group-item-action"
+    [class.active]="category == selectedCategory"
+  >
+    {{ category.name }}</a
+  >
+</div> -->
+
+<!-- <breadcrumb
+  [inputCategoryDown]="selectedCategory?.name"
+  [inputCategory]="selectedCategory?.upName"
+></breadcrumb> -->
+
+<!-- <div class="container text-align-center text-start mb-2">
+  <div class="row">
+    <div class="col-12">{{ getBreadcrum() }}</div>
+  </div>
+</div> -->
+
+<div id="categoryList" *ngIf="isVisibleCatgoryList$ | async">
+  <div *ngFor="let allUpname of allCategoriesUpName">
+    <div class="card filters">
+      <div class="filter-box">
+        <header class="card-header">
+          <a
+            href="#"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#' + allUpname"
+            class="fs-4"
+          >
+            <i class="fa fa-chevron-down"></i>{{ allUpname }}
+          </a>
+        </header>
+        <div class="collapse show" id="{{ allUpname }}">
+          <div class="card-body">
+            <ul class="menu scroll">
+              <li *ngFor="let category of categories">
+                <div *ngIf="category.upName == allUpname">
+                  <a
+                    routerLink="/products/categories/{{ category.id }}"
+                    (click)="selectCategory(category)"
+                    class="list-group-item list-group-item-action"
+                    [class.active]="category == selectedCategory"
+                    (click)="unVisibleCategoryList()"
+                  >
+                    {{ category.name }}</a
+                  >
+                  <!--  (click)="dnone()" -->
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="filter" *ngIf="isVisibleFilter$ | async">
+  <div class="card filters">
+    <div class="filter-box">
+      <header class="card-header">
+        <a
+          href="#"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapse_box1"
+          class="fs-4"
+        >
+          <i class="fa fa-chevron-down"></i>Filtrele
+        </a>
+      </header>
+      <div class="collapse show" id="collapse_box1">
+        <div class="card-body">
+          <div class="menu">
+            <div class="price-form pb-2 border-bottom">
+              <div class="text"><p class="text-center">Ücret Tipi</p></div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="price"
+                  id="free"
+                  #pricefree
+                />
+                <label class="form-check-label" for="free"> Ücretsiz </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="price"
+                  id="sale"
+                  #pricesale
+                />
+                <label class="form-check-label" for="sale"> Ücretli </label>
+              </div>
+            </div>
+            <div class="date-form pb-2 border-bottom">
+              <div class="text"><p class="text-center">Sırala</p></div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="filterdate"
+                  id="firstNew"
+                  #firstnew
+                />
+                <label class="form-check-label" for="firstNew">
+                  Önce En Yeni
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="filterdate"
+                  id="firstOld"
+                  #firstold
+                />
+                <label class="form-check-label" for="firstOld">
+                  Önce En eski
+                </label>
+              </div>
+            </div>
+            <div class="select-location">
+              <div class="text"><p class="text-center">Konum</p></div>
+              <select
+                [(ngModel)]="model.city"
+                class="form-select my-2"
+                aria-label="Default select example"
+                name="adCity"
+                id="adCity"
+                required
+                #city
+                (change)="updateDistrict(city)"
+              >
+                <option value="0">Lütfen il seçiniz</option>
+                <option *ngFor="let city of cities" value="{{ city.name }}">
+                  {{ city.name }}
+                </option>
+                <!-- <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option> -->
+              </select>
+              <select
+                class="form-select mb-2"
+                aria-label="Default select example"
+                name="adDistrict"
+                id="adDistrict"
+                #district
+                (click)="updateQuarter(city, district)"
+              >
+                <option value="0" selected>Lütfen ilçe seçiniz</option>
+                <!-- <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>  -->
+              </select>
+              <select
+                class="form-select mb-2"
+                aria-label="Default select example"
+                name="adQuarter"
+                id="adQuarter"
+                #quarter
+                (change)="setFilterLocation(city, district, quarter)"
+              >
+                <option value="0" selected>Lütfen mahalle seçiniz</option>
+
+                <!-- <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option> -->
+              </select>
+            </div>
+            <div class="d-flex flex-column mt-3 pb-2 border-bottom">
+              <button
+                type="button"
+                class="btn btn-primary text-center"
+                id="filterButton"
+                (click)="
+                  setFilterLocationAll(
+                    city,
+                    district,
+                    quarter,
+                    pricefree,
+                    pricesale,
+                    firstnew,
+                    firstold
+                  )
+                "
+              >
+                Ara
+                <!--  (click)="dblock()" -->
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="ad-field" *ngIf="isVisibleAdField$ | async">
+  <p><i class="fa-regular fa-image fa-beat-fade fa-2xl"></i>REKLAM</p>
+  <p><i class="fa-regular fa-image fa-beat-fade fa-2xl"></i>REKLAM</p>
+  <p><i class="fa-regular fa-image fa-beat-fade fa-2xl"></i>REKLAM</p>
+  <p><i class="fa-regular fa-image fa-beat-fade fa-2xl"></i>REKLAM</p>
+</div>

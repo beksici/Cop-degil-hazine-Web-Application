@@ -1,0 +1,106 @@
+#contact-a .form-fields {
+  display: grid;
+  grid-template-areas:
+    "name email"
+    "subject phone"
+    "message message"
+    "button button";
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+#contact-a .form-fields .input {
+  padding: 0.5rem 1rem;
+}
+
+#contact-a .form-fields .name {
+  grid-area: name;
+}
+#contact-a .form-fields .subject {
+  grid-area: subject;
+}
+
+#contact-a .form-fields .email {
+  grid-area: email;
+}
+#contact-a .form-fields .phone {
+  grid-area: phone;
+}
+
+#contact-a .form-fields .message {
+  grid-area: message;
+  height: 18rem;
+}
+
+#contact-a .form-fields .button {
+  grid-area: button;
+}
+
+#contact-b .contact-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  color: white;
+}
+
+.border-bottom {
+  height: 3px;
+  width: 3rem;
+  background-color: #ef6d6d;
+  margin: 0 auto 1rem auto;
+}
+.section-title {
+  font-size: 1.5rem;
+  padding-bottom: 1rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+.lead {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  word-spacing: 2px;
+}
+button[class^="btn-"]:hover,
+a[class^="btn-"]:hover,
+input[class^="btn-"]:hover {
+  background-color: #ef6d6d;
+}
+
+@media (max-width: 768px) {
+  #contact-b .contact-info {
+    grid-template-columns: 1fr;
+  }
+
+  #contact-a .form-fields {
+    /* grid-template-areas:
+      "name"
+      "email"
+      "subject"
+      "phone"
+      "message"
+      "button "; */
+    /* grid-template-columns: auto; */
+    display: flex;
+    line-height: normal;
+    flex-direction: column;
+    width: 100%;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  #contact-b div {
+    font-size: smaller;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed #fff;
+  }
+  #contact-b div:last-child {
+    border: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  .lead {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+  }
+}

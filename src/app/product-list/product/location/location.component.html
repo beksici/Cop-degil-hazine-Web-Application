@@ -1,0 +1,26 @@
+<div class="container text-center">
+  <div class="row">
+    <div class="my-google-map">
+      <google-map [options]="mapOptions" width="100%">
+        <map-marker
+          [position]="marker.position"
+          [clickable]="true"
+        ></map-marker>
+      </google-map>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center align-items-center">
+    <a
+      class="hidden"
+      id="link"
+      href="https://www.google.com/maps?q= {{ lat }} ,{{ lng }}"
+    ></a>
+    <button
+      type="button"
+      id="showmyloc"
+      class="btn mt-3 btn-outline-primary mb-3"
+    >
+      Ayrıntılı Göster
+    </button>
+  </div>
+</div>

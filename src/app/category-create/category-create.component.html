@@ -1,0 +1,27 @@
+<h3 class="text-center mb-3">Kategori Oluştur</h3>
+<form>
+  <div class="mb-3">
+    <label for="upName" class="form-label">Ana Kategori</label>
+    <input
+      #upName
+      type="text"
+      name="upName"
+      id="upNname"
+      class="form-control"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="name" class="form-label">Alt Kategori</label>
+    <input #name type="text" name="name" id="name" class="form-control" />
+  </div>
+  <div class="text-center">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="saveCategory(name, upName)"
+    >
+      Kaydet
+    </button>
+  </div>
+</form>

@@ -1,0 +1,304 @@
+<!-- <h3>Product Create</h3> -->
+<!-- <form>
+  <div class="alert alert-danger" *ngIf="error">
+    {{ error }}
+  </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input #name type="text" name="name" id="name" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input #price type="text" name="price" id="price" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label for="imageUrl" class="form-label">imageUrl</label>
+    <input
+      #imageUrl
+      type="text"
+      name="imageUrl"
+      id="imageUrl"
+      class="form-control"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      #description
+      name="description"
+      id="description"
+      class="form-control"
+    ></textarea>
+  </div>
+  <div class="form-check mb-3">
+    <input
+      #isActive
+      type="checkbox"
+      class="form-check-input"
+      name="isActive"
+      id="isActive"
+    />
+    <label for="isActive" class="form-check-label">isActive</label>
+  </div>
+  <div class="mb-3">
+    <label for="categoryId" class="form-label">category</label>
+    <select #categoryId name="categoryId" id="categoryId" class="form-select">
+      <option value="0">Kategori</option>
+      <option *ngFor="let category of categories" value="{{ category.id }}">
+        {{ category.name }}
+      </option>
+    </select>
+  </div>
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="
+      saveProduct(name, price, imageUrl, description, isActive, categoryId)
+    "
+  >
+    Save Product
+  </button>
+   eğer button type seçmezsen sayfayı yeniler o yüzden type yaz 
+   saveProducta #ile verdiğim değerleri aktarabiliyorum 
+</form> -->
+<h3 class="text-center mb-3">İLAN OLUŞTUR</h3>
+<!-- {{ model | json }} -->
+<form
+  #form="ngForm"
+  *ngIf="user$ | async as user"
+  (ngSubmit)="saveProduct(form, user)"
+>
+  <div class="alert alert-danger" *ngIf="error">
+    {{ error }}
+  </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">İlan Başlığı</label>
+    <input
+      required
+      minlength="5"
+      maxlength="50"
+      [(ngModel)]="model.name"
+      #name="ngModel"
+      type="text"
+      name="name"
+      id="name"
+      class="form-control"
+    />
+  </div>
+  <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+    Ürün ismi en az 5 karakter olmalıdır
+  </div>
+  <!-- <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input
+      [(ngModel)]="model.price"
+      type="number"
+      min="0"
+      max="1000000"
+      required
+      #price="ngModel"
+      name="price"
+      id="price"
+      class="form-control"
+    />
+  </div>
+  <div class="text-danger mt-1" *ngIf="price.invalid && price.touched">
+    Lütfen 0-100000 arası bir değer giriniz
+  </div> -->
+  <div class="mb-3">
+    <label for="imageUrl" class="form-label">İlan Resmi Yükleme</label>
+    <input
+      [(ngModel)]="model.imageUrl"
+      type="file"
+      name="imageUrl"
+      required
+      id="imageUrl"
+      class="form-control"
+      multiple
+      accept="image/*"
+      (change)="setFileList($event)"
+    />
+  </div>
+  <img
+    id="uploadedImageCreate"
+    *ngIf="selectedImage"
+    [src]="selectedImage.src"
+    width="300"
+    height="300"
+    style="display: none"
+  />
+  <div class="mb-3">
+    <label for="description" class="form-label">Açıklama</label>
+    <!-- <textarea
+      [(ngModel)]="model.description"
+      name="description"
+      required
+      id="description"
+      class="form-control"
+    ></textarea> -->
+    <ckeditor
+      [(ngModel)]="model.description"
+      name="description"
+      required
+      id="description"
+      [editor]="Editor"
+      class="form-control"
+    ></ckeditor>
+  </div>
+  <!-- <div class="form-check mb-3">
+    <input
+      [(ngModel)]="model.isActive"
+      type="checkbox"
+      class="form-check-input"
+      name="isActive"
+      id="isActive"
+    />
+    <label for="isActive" class="form-check-label">isActive</label>
+  </div> -->
+  <div class="mb-3 d-flex justify-content-start" *ngIf="continue">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <p class="text-danger text-bold fade-in-text mx-5">
+      Lütfen Bekleyin Kategorinizi Tahmin Ediyoruz...
+    </p>
+  </div>
+  <div class="mb-3 constant-tilt-shake" *ngIf="!continue">
+    <p class="text-danger text-bold">Kategori Tahminimiz: {{ guess }}</p>
+  </div>
+  <div class="mb-3">
+    <label for="categoryId" class="form-label">Kategori</label>
+
+    <select
+      [(ngModel)]="model.categoryId"
+      name="categoryId"
+      required
+      id="categoryId"
+      class="form-select"
+      [disabled]="disabled"
+    >
+      <option value="0">Kategori</option>
+      <option *ngFor="let category of categories" value="{{ category.id }}">
+        {{ category.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="select-location mb-3">
+    <div class="text"><p class="text-center">Konum</p></div>
+    <select
+      [(ngModel)]="model.adCityP"
+      class="form-select my-2"
+      aria-label="Default select example"
+      name="adCityP"
+      id="adCityP"
+      required
+      #adCityP
+      (change)="updateDistrict(adCityP)"
+    >
+      <option value="0">Lütfen il seçiniz</option>
+      <option *ngFor="let city of cities" value="{{ city.name }}">
+        {{ city.name }}
+      </option>
+      <!-- <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option> -->
+    </select>
+    <select
+      [(ngModel)]="model.adDistrictP"
+      class="form-select mb-2"
+      aria-label="Default select example"
+      name="adDistrictP"
+      id="adDistrictP"
+      #adDistrictP
+      (click)="updateQuarter(adCityP, adDistrictP)"
+    >
+      <option value="0" selected>Lütfen ilçe seçiniz</option>
+      <!-- <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>  -->
+    </select>
+    <select
+      [(ngModel)]="model.adQuarterP"
+      class="form-select mb-2"
+      aria-label="Default select example"
+      name="adQuarterP"
+      id="adQuarterP"
+      #adQuarterP
+      (change)="setFilterLocation(adCityP, adDistrictP, adQuarterP)"
+    >
+      <option value="0" selected>Lütfen mahalle seçiniz</option>
+
+      <!-- <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option> -->
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="fullAddress" class="form-label">Tam Adres</label>
+    <!-- <textarea
+      [(ngModel)]="model.description"
+      name="description"
+      required
+      id="description"
+      class="form-control"
+    ></textarea> -->
+    <textarea
+      cols="30"
+      rows="10"
+      [(ngModel)]="model.fullAddress"
+      name="fullAddress"
+      required
+      id="fullAddress"
+      class="form-control"
+    >
+    </textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="priceFree" class="form-label">Ücret Tipi</label>
+    <select
+      [(ngModel)]="model.priceFree"
+      name="priceFree"
+      required
+      id="priceFree"
+      class="form-select"
+      #pricefree="ngModel"
+    >
+      <option value="false">Ücretli</option>
+      <option value="true">Ücretsiz</option>
+    </select>
+  </div>
+  <div class="text-danger mt-1" *ngIf="pricefree.invalid && pricefree.touched">
+    Lütfen Ücret Tipini Giriniz
+  </div>
+  <div class="mb-3">
+    <label for="phoneNo" class="form-label">Telefon Numarası</label>
+    <input
+      required
+      [(ngModel)]="model.phoneNo"
+      #phoneNo="ngModel"
+      type="tel"
+      name="phoneNo"
+      id="phoneNo"
+      class="form-control"
+      maxlength="10"
+      pattern="\d{3}\d{3}\d{2}\d{2}"
+      placeholder="(506)-655-15-45"
+      (change)="phoneNumberFormatter(phoneNo)"
+    />
+  </div>
+  <div class="text-danger mt-1" *ngIf="phoneNo.invalid && phoneNo.touched">
+    Lütfen Telefon Numaranızı Giriniz
+  </div>
+  <div class="d-flex justify-content-center align-items-center">
+    <button
+      type="submit"
+      class="btn btn-primary text-center d-flex"
+      [disabled]="form.invalid"
+    >
+      İlan Ver
+    </button>
+  </div>
+</form>

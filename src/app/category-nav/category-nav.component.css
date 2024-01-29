@@ -1,0 +1,19 @@
+.list-group-item {
+  border-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+  margin-left: 0 !important;
+  cursor: pointer;
+  background-color: #f3f3f3;
+}
+.list-group-item:hover {
+  background-color: #999aa5;
+  transition: all;
+  transition-duration: 0.5s;
+}
+/* #allCategories:hover {
+  color: rgb(13, 202, 240) !important;
+  background-color: white !important;
+} */

@@ -1,0 +1,13 @@
+.px-3 {
+  padding-left: 0 !important;
+}
+@media (min-width: 768px) {
+  .card-text {
+    font-size: small;
+  }
+}
+@media (max-width: 768px) {
+  .card-text {
+    font-size: x-small;
+  }
+}

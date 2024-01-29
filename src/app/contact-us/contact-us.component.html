@@ -1,0 +1,138 @@
+<section id="contact-a" class="text-center py-3">
+  <div class="container">
+    <h2 class="section-title">BİZİMLE İLETİŞİME GEÇİN</h2>
+    <div class="border-bottom"></div>
+    <p class="lead">En Kısa Sürede Dönüş Sağlanacaktır</p>
+    <div class="alert alert-danger" *ngIf="error">
+      {{ error }}
+    </div>
+    <form [formGroup]="emailForm">
+      <div class="form-fields">
+        <input
+          type="text"
+          class="name input"
+          name="fullname"
+          id="fullname"
+          placeholder="Ad Soyad"
+          #name
+        />
+        <input
+          type="text"
+          class="subject input"
+          name="subject"
+          id="subject"
+          placeholder="Konu"
+          #subject
+        />
+        <input
+          type="email"
+          class="email input"
+          name="email"
+          id="email"
+          placeholder="Email adresiniz"
+          #email
+        />
+        <input
+          type="tel"
+          class="phone input"
+          name="phone"
+          id="phone"
+          placeholder="Telefon numaranızı giriniz"
+          #phone
+        />
+        <textarea
+          name="message"
+          class="message input"
+          id="message"
+          placeholder="Mesajınızı yazınız"
+          #message
+        ></textarea>
+        <button
+          type="button"
+          class="btn-dark button input"
+          (click)="
+            sendEmail(
+              name.value,
+              subject.value,
+              phone.value,
+              email.value,
+              message.value
+            )
+          "
+        >
+          Gönder
+        </button>
+        <a
+          id="modalLink"
+          hidden
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+          routerLink="/products"
+        >
+        </a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          BİZİMLE İLETİŞİME GEÇİN
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Tebrikler başarıyla gönderildi.
+        <i class="fa-solid fa-check" style="color: #00f0a8"></i>
+      </div>
+      <!-- <div class="modal-body">
+        Mesajınız gönderilemedi. Lütfen bilgilerinizi doğru giriniz.
+        <i class="fa-solid fa-xmark" style="color: #ff0000"></i>
+      </div> -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="contact-b" class="bg-dark py-4">
+  <div class="container">
+    <div class="contact-info">
+      <div>
+        <i class="fas fa-envelope fa-2x"></i>
+        <h3>Email</h3>
+        <p>copdegilhazine&#64;gmail.com</p>
+      </div>
+      <div>
+        <i class="fas fa-phone fa-2x"></i>
+        <h3>Phone</h3>
+        <p>(506) 611 93 13</p>
+      </div>
+      <div>
+        <i class="fas fa-address-card fa-2x"></i>
+        <h3>Adress</h3>
+        <p>Kocaeli,Türkey</p>
+      </div>
+    </div>
+  </div>
+</section>

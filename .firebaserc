@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ng-shopapp-fc436": {
+      "hosting": {
+        "app": [
+          "ng-shopapp-fc436"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ng-shopapp-fc436"
+  }
+}

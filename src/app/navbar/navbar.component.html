@@ -1,0 +1,211 @@
+<header id="navbar">
+  <section class="top-bar pt-2" style="background-color: #092635">
+    <div class="container">
+      <div class="row gy-3 align-items-center">
+        <!-- gy-3 satırlar arası boşluk -->
+        <!-- row bir flexbox classıdır o yüzden dikeyde hizaladık -->
+        <div class="col-lg-2 col-sm-4 col-4">
+          <a
+            routerLink="/"
+            class="navbar-brand"
+            (click)="VisibleAllListFilterNav()"
+          >
+            <img
+              src="/assets/images/logo.png"
+              alt="logo"
+              width="50px"
+              class="rounded-circle mb-1"
+            />
+            <!-- LOGO -->
+            <!-- (click)="display()" -->
+          </a>
+          <button
+            class="navbar-toggler"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
+          <!-- order-lg-last  large cihazın üzerinde en sağa alıyorrum -->
+          <div class="text-end">
+            <!-- text-end ile sağa yasladık -->
+            <ng-container
+              *ngIf="authService.currentUser$ | async as user; else loginButton"
+            >
+              <a
+                class="btn btn-light"
+                id="logout"
+                (click)="logout()"
+                (click)="VisibleAllListFilterNav()"
+              >
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="ms-1 d-none d-sm-inline-block"
+                  >Çıkış {{ user.displayName }}</span
+                >
+                <!--  d-none d-sm-inline-block  small cihaz altında görünmesin small cihaz üzerinde inline-block olsun gözüksün demek-->
+              </a></ng-container
+            >
+            <ng-template #loginButton>
+              <a
+                routerLink="login"
+                class="btn btn-light"
+                id="login"
+                (click)="VisibleAllListFilterNav()"
+              >
+                <i class="fa fa-user"></i>
+                <span class="ms-1 d-none d-sm-inline-block">Giriş Yap</span>
+                <!--  d-none d-sm-inline-block  small cihaz altında görünmesin small cihaz üzerinde inline-block olsun gözüksün demek-->
+              </a></ng-template
+            >
+            <!-- 
+            <a class="btn btn-light">
+              <i class="fa-solid fa-user-plus"></i>
+              <span class="ms-1 d-none d-sm-inline-block">Sign Up</span>
+            </a> -->
+          </div>
+        </div>
+        <div class="col-lg-5 col-12">
+          <form>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control me-1"
+                placeholder="Ara İlan No"
+                #search
+              />
+              <button
+                class="btn btn-primary"
+                (click)="getProductIdSearched(search)"
+                (click)="VisibleAllListFilterNav()"
+              >
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav
+    class="navbar navbar-dark bg-primary navbar-expand-lg mt-3"
+    id="navbar-nav"
+    style="background-color: #1b4242 !important"
+  >
+    <!-- navbar-expand-lg  large cihazların üzerinde yan yana gelsin altında alt alta collapsele açılsın -->
+    <div class="container">
+      <button
+        type="button"
+        class="navbar-toggler border"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbar_main"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar_main">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <!-- me-auto içerikleri sağa iter
+           mb-lg-0 large cihazlarda margin bottom olmasın  -->
+          <li class="nav-item">
+            <a
+              routerLink="/"
+              class="nav-link fw-bold"
+              (click)="VisibleAllListFilterNav()"
+              >Ana Sayfa
+              <!-- (click)="display()" -->
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              routerLink="/products"
+              class="nav-link fw-bold"
+              (click)="VisibleAllListFilterNav()"
+              >Tüm İlanlar
+              <!-- (click)="display()" -->
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              routerLink="/products/create"
+              class="nav-link fw-bold"
+              (click)="VisibleAllListFilterNav()"
+            >
+              <!-- (click)="dnone()" -->
+              İlan Ver
+            </a>
+          </li>
+
+          <li class="nav-item" *ngIf="authService.currentUser$ | async as user">
+            <a class="nav-link fw-bold" (click)="clickedMyProducts()">
+              İlanlarım
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link fw-bold"
+              routerLink="/companies"
+              (click)="VisibleAllListFilterNav()"
+            >
+              Kurumsal Firmalar
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link fw-bold"
+              routerLink="/treasures"
+              (click)="VisibleAllListFilterNav()"
+            >
+              Bekleyen Hazineler!!
+            </a>
+          </li>
+          <div *ngIf="authService.currentUser$ | async as user">
+            <li
+              *ngIf="authService.admin()"
+              class="nav-item"
+              id="create-category"
+            >
+              <a
+                routerLink="/categories/create"
+                class="nav-link fw-bold"
+                (click)="VisibleAllListFilterNav()"
+              >
+                Kategori Oluştur</a
+              >
+            </li>
+          </div>
+          <div *ngIf="authService.currentUser$ | async as user">
+            <li
+              *ngIf="authService.admin()"
+              class="nav-item"
+              id="company-create"
+            >
+              <a
+                routerLink="/company-create"
+                class="nav-link fw-bold"
+                (click)="VisibleAllListFilterNav()"
+              >
+                Kurumsal Firma Oluştur</a
+              >
+            </li>
+          </div>
+          <!-- <div *ngIf="authService.currentUser$ | async as user">
+            <li class="nav-item" *ngIf="authService.getisAdmin() || local">
+              <a routerLink="/allproducts" class="nav-link"> Tüm İlanlar </a>
+            </li>
+          </div> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- <div class="container">
+    <div class="my-3">
+      <div class="row">
+        <div class="col-12">
+          <category-list></category-list>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</header>
